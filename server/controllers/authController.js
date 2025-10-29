@@ -133,8 +133,8 @@ const continueAsGuest = async (req, res, next) => {
     // Also set guestId in cookie for cart merging
     res.cookie('guestId', guestId, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -163,16 +163,16 @@ const logout = async (req, res, next) => {
     // Clear token cookie with same options as when it was set
     res.cookie('token', '', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: true,
+      sameSite: 'none',
       expires: new Date(0),
     });
 
     // Clear guest cookie if exists
     res.clearCookie('guestId', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: true,
+      sameSite: 'none',
     });
 
     res.json({

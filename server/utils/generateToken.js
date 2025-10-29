@@ -13,11 +13,11 @@ const generateToken = (res, userId, isGuest = false) => {
     { expiresIn: process.env.JWT_EXPIRE || '7d' }
   );
 
-  // Set cookie options
+  // Set cookie options - always allow cross-origin
   const cookieOptions = {
     httpOnly: true, // Prevents XSS attacks
-    secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' for cross-origin in production
+    secure: true, // Always require HTTPS
+    sameSite: 'none', // Always allow cross-origin
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   };
 
