@@ -17,7 +17,7 @@ const generateToken = (res, userId, isGuest = false) => {
   const cookieOptions = {
     httpOnly: true, // Prevents XSS attacks
     secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-    sameSite: 'strict', // CSRF protection
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' for cross-origin in production
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   };
 

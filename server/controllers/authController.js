@@ -160,14 +160,20 @@ const continueAsGuest = async (req, res, next) => {
  */
 const logout = async (req, res, next) => {
   try {
-    // Clear token cookie
+    // Clear token cookie with same options as when it was set
     res.cookie('token', '', {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       expires: new Date(0),
     });
 
     // Clear guest cookie if exists
-    res.clearCookie('guestId');
+    res.clearCookie('guestId', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    });
 
     res.json({
       success: true,

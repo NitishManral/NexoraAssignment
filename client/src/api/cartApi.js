@@ -3,6 +3,9 @@ import axios from 'axios';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 const API_URL = `${API_BASE_URL}/api/cart`;
 
+// Configure axios to send cookies with requests
+axios.defaults.withCredentials = true;
+
 /**
  * Add item to cart
  */
