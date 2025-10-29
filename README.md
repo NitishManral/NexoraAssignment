@@ -42,7 +42,7 @@ A modern full-stack e-commerce shopping cart application built with React, Node.
 
 1. **Clone the repository**
 ```bash
-git clone <repo-url>
+git clone https://github.com/NitishManral/NexoraAssignment.git
 cd NexoraAssignment
 ```
 
