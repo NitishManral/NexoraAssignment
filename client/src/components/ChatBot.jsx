@@ -2,17 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiX, HiChatAlt2, HiPaperAirplane, HiShoppingCart, HiCheck, HiPlus, HiMinus } from 'react-icons/hi';
 import { useChat } from '../context/ChatContext';
-import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
 /**
  * ChatBot Component
  * Floating AI assistant with glassmorphism design
- * Requires authentication (guest or logged in)
  */
 const ChatBot = () => {
   const { messages, loading, isOpen, sendMessage, toggleChat, closeChat } = useChat();
-  const { isAuthenticated } = useAuth();
   const { addToCart, cartItems, updateQuantity, removeFromCart } = useCart();
   const [inputMessage, setInputMessage] = useState('');
   const [addingToCart, setAddingToCart] = useState(null);
@@ -35,10 +32,6 @@ const ChatBot = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isAuthenticated) {
-      onAuthRequired();
-      return;
-    }
     if (inputMessage.trim() && !loading) {
       sendMessage(inputMessage);
       setInputMessage('');
@@ -46,10 +39,6 @@ const ChatBot = () => {
   };
 
   const handleToggleChat = () => {
-    if (!isAuthenticated) {
-      onAuthRequired();
-      return;
-    }
     toggleChat();
   };
 

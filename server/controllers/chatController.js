@@ -87,7 +87,7 @@ const sendMessage = async (req, res, next) => {
     }
 
     // Fetch current products for context
-    const products = await Product.find({}).select('name price');
+    const products = await Product.find({}).select('name price image');
 
     // Get system prompt with product context
     const systemPrompt = getSystemPrompt(products);
